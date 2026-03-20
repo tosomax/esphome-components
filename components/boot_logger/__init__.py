@@ -4,6 +4,7 @@ from esphome import core
 from esphome.const import (
     CONF_ID
 )
+from esphome.components.logger import request_log_listener
 
 DEPENDENCIES = ["logger"]
 
@@ -29,5 +30,7 @@ CONFIG_SCHEMA = cv.All(
 )
 
 async def to_code(config):
+   request_log_listener()
+
    var = cg.new_Pvariable(config[CONF_ID], config[CONF_HEAP_LIMIT], config[CONF_DUMP_LINES_PER_LOOP], config[CONF_CONNECT_DELAY])
    await cg.register_component(var, config)

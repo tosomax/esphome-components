@@ -7,7 +7,7 @@
 namespace esphome {
 namespace boot_logger {
 
-class BootLogger : public Component, public logger::LogListener {
+class BootLogger : public Component {
    struct LogItem {
       int level;
       std::string tag;
@@ -31,11 +31,11 @@ public:
    void setup() override;
    void loop() override;
 
-   void on_log(uint8_t level, const char *tag, const char *message, size_t message_len) override;
-
 private:
 
    void dumping();
+
+   void on_log(uint8_t level, const char *tag, const char *message, size_t message_len);
 
    const Config m_config;
    State m_state{ State::BUFFERING };

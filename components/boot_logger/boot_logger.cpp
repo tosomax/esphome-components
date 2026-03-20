@@ -15,26 +15,30 @@ BootLogger::BootLogger(std::uint32_t heap_limit, std::uint32_t dump_lines_per_lo
 
 void BootLogger::setup() {
     ESP_LOGI(TAG, "setup");
+
     if (logger::global_logger != nullptr) {
-        logger::global_logger->add_log_listener(this);
+        logger::global_logger->add_log_callback(
+            this, [](void *self, uint8_t level, const char *tag, const char *message, size_t message_len) {
+              static_cast<BootLogger *>(self)->on_log(level, tag, message, message_len);
+            });
     }
-    m_setup_ts = esphome::millis();
 }
 
 void BootLogger::loop() {
     const bool connected = esphome::api_is_connected();
+    const uint32_t now = esphome::millis();
 
     const uint32_t dump_ts = m_connected_ts + m_config.connect_delay;
     bool log_connected = false;
     if (connected && m_connected_ts == 0) {
-        m_connected_ts = esphome::millis();
+        m_connected_ts = now;
         log_connected = true;
 
-        ESP_LOGE(TAG, "state: %d, connected: %d, free_heap: %d, size: %d, setup: %d, connected_ts: %d, dump_ts: %d, millis: %d",
-            m_state, connected, esp_get_free_heap_size(), m_items.size(), m_setup_ts, m_connected_ts, dump_ts, esphome::millis());
+        ESP_LOGE(TAG, "state: %d, connected: %d, free_heap: %d, size: %d, connected_ts: %d, dump_ts: %d, millis: %d",
+            m_state, connected, esp_get_free_heap_size(), m_items.size(), m_connected_ts, dump_ts, now);
     }
 
-    if ((m_connected_ts > 0 && esphome::millis() > dump_ts) || (esp_get_free_heap_size() < m_config.heap_limit)) {
+    if ((m_connected_ts > 0 && now > dump_ts) || (esp_get_free_heap_size() < m_config.heap_limit)) {
         m_state = State::DUMPING;
     }
 
