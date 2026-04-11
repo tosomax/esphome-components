@@ -84,7 +84,7 @@ fan_divider = {
     ERLQ016CAW1: 0.1 * 0.1,
     ERGA06EAV3: 0.1,
     ERGA08DAV3: 0.1 * 0.1,
-    ERGA08EAV3H: 0.1 * 0.1,
+    ERGA08EAV3H: 0.1,
     RRGA08DAV3: 0.1 * 0.1,
 }
 
