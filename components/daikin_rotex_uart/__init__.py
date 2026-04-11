@@ -428,6 +428,20 @@ sensor_configuration = [
         "unit_of_measurement": UNIT_CELSIUS,
         "accuracy_decimals": 1,
         "state_class": STATE_CLASS_MEASUREMENT
+    },
+    {
+        "type": "sensor",
+        "name": "discharge_pressure",
+        "registryID": 0x62,
+        "offset": 15,
+        "signed": True,
+        "dataSize": 2,
+        "endian": Endian.LITTLE,
+        "divider": 10,
+        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "unit_of_measurement": UNIT_CELSIUS,
+        "accuracy_decimals": 1,
+        "state_class": STATE_CLASS_MEASUREMENT
     }
 
     # 0x62 Not supported by HPSU Compact 2013 + RRLQ006CAV3
