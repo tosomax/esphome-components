@@ -45,7 +45,7 @@ TEntity* TMessageManager::getEntityById(const std::string& id) {
 
 UartSensor* TMessageManager::get_sensor(std::string const& id, bool log_missing) {
     TEntity* pEntity = getEntityById(id);
-    if (UartSensor* pSensor = dynamic_cast<UartSensor*>(pEntity)) {
+    if (UartSensor* pSensor = static_cast<UartSensor*>(pEntity)) {
         return pSensor;
     } else if (log_missing) {
         if (pEntity) {
@@ -59,7 +59,7 @@ UartSensor* TMessageManager::get_sensor(std::string const& id, bool log_missing)
 
 UartSensor const* TMessageManager::get_sensor(std::string const& id, bool log_missing) const {
     TEntity const* pEntity = getEntityById(id);
-    if (UartSensor const* pSensor = dynamic_cast<UartSensor const*>(pEntity)) {
+    if (UartSensor const* pSensor = static_cast<UartSensor const*>(pEntity)) {
         return pSensor;
     } else if (log_missing) {
         if (pEntity) {

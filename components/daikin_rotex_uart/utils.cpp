@@ -37,7 +37,7 @@ std::string Utils::to_hex(uint8_t const* data, std::size_t maxlen) {
 
 std::string Utils::to_hex(uint32_t value) {
     char hex_string[20];
-    sprintf(hex_string, "0x%02X", value);
+    sprintf(hex_string, "0x%02lX", static_cast<unsigned long>(value));
     return std::string(hex_string);
 }
 

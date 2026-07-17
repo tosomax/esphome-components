@@ -558,8 +558,7 @@ FINAL_VALIDATE_SCHEMA = uart.final_validate_device_schema(
 
 async def to_code(config):
 
-    cg.set_cpp_standard("gnu++20")
-    cg.add_build_unflag("-fno-rtti")
+    cg.set_cpp_standard("gnu++23")
 
     if CONF_LANGUAGE in config:
         lang = config[CONF_LANGUAGE]
