@@ -47,7 +47,7 @@ bool TRequest::isInProgress() const {
 
 bool TRequest::isRequestRequired() const {
     uint32_t mil = millis();
-    uint32_t timeout = 5000u;
+    uint32_t timeout = 15000u;
 
     return !isInProgress() && (mil > (m_last_response_timestamp + timeout));
 }
