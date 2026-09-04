@@ -47,7 +47,7 @@ void UartSensor::update(uint32_t millis) {
 
     if (m_smooth) {
         const float dt = (static_cast<float>(esphome::millis()) - m_pid.get_last_update()) / 1000.0f; // seconds
-        if (dt > 10.0f) {
+        if (dt > 20.0f) {
             if (std::isnan(m_smooth_state)) {
                 m_smooth_state = m_state;
             }
